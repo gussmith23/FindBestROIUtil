@@ -12,27 +12,39 @@ namespace FindBestROIUtil
 {
     public static class FindBestROIUtil
     {
-        public static Rectangle FindBestROI(Image<Gray, Byte> SceneImage, Image<Gray, Byte> ModelImage, Size RoiSize)
+        /// <summary>
+        /// Scans scene image patch-by-patch and returns ROI with the highest-confidence SURF match with
+        /// the model image.
+        /// Each patch is of size PatchSize. Starting at the top left of the image, a sliding box pans
+        /// left-to-right, moving half of the PatchSize width each time. When it hits the edge, it 
+        /// goes back to zero and moves down half of PatchSize height.
+        /// The smaller the ROI, the longer this algorithm will take to run.
+        /// </summary>
+        /// <param name="SceneImage">The image to search within.</param>
+        /// <param name="ModelImage">The model image to search for.</param>
+        /// <param name="PatchSize">The size of the patch to slide across the image.</param>
+        /// <returns>The patch with the most confident SURF match to the model image.</returns>
+        public static Rectangle FindBestROI(Image<Gray, Byte> SceneImage, Image<Gray, Byte> ModelImage, Size PatchSize)
         {
             Point CurrentLoc = new Point(0, 0);
             Tuple<Rectangle, double> BestROI = new Tuple<Rectangle, double>(Rectangle.Empty, 0.0f);
-            Size StepSize = new Size((int)((float)RoiSize.Width / 2f), (int)((float)RoiSize.Height / 2f));
+            Size StepSize = new Size((int)((float)PatchSize.Width / 2f), (int)((float)PatchSize.Height / 2f));
             Size SceneSize = new Size(SceneImage.Width, SceneImage.Height);
 
-            while (CurrentLoc.Y + RoiSize.Height < SceneSize.Height)
+            while (CurrentLoc.Y + PatchSize.Height < SceneSize.Height)
             {
-                if (CurrentLoc.Y + RoiSize.Height > SceneSize.Height)
-                    CurrentLoc.Y = SceneSize.Height - RoiSize.Height;
+                if (CurrentLoc.Y + PatchSize.Height > SceneSize.Height)
+                    CurrentLoc.Y = SceneSize.Height - PatchSize.Height;
 
-                while (CurrentLoc.X + RoiSize.Width < SceneSize.Width)
+                while (CurrentLoc.X + PatchSize.Width < SceneSize.Width)
                 {
-                    if (CurrentLoc.X + RoiSize.Width > SceneSize.Width)
-                        CurrentLoc.X = SceneSize.Width - RoiSize.Width;
+                    if (CurrentLoc.X + PatchSize.Width > SceneSize.Width)
+                        CurrentLoc.X = SceneSize.Width - PatchSize.Width;
 
                     double confidence;
                     long time;
                     PointF[] border;
-                    Rectangle ThisROI = new Rectangle(CurrentLoc, RoiSize);
+                    Rectangle ThisROI = new Rectangle(CurrentLoc, PatchSize);
                     SceneImage.ROI = ThisROI;
                     Draw(ModelImage, SceneImage, out time, out border, out confidence);
                     if (confidence > BestROI.Item2) BestROI = new Tuple<Rectangle, double>(ThisROI, confidence);
