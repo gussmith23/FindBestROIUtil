@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/FindBestROIUtil/bin/x64/Debug
+/FindBestROIUtil/obj
+/FindBestROIUtilTests/bin/Debug
+/FindBestROIUtilTests/obj/Debug
+/.vs/FindBestROIUtil/v14

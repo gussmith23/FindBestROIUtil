@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindBestROIUtilTests", "FindBestROIUtilTests\FindBestROIUtilTests.csproj", "{0A3DB296-68BE-4BF0-9A58-84DC172D4438}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FindBestROIUtil", "FindBestROIUtil\FindBestROIUtil.csproj", "{3DA303B1-30E1-4CCD-AD93-E6C33E556411}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Debug|x64.Build.0 = Debug|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Release|x64.ActiveCfg = Release|Any CPU
+		{0A3DB296-68BE-4BF0-9A58-84DC172D4438}.Release|x64.Build.0 = Release|Any CPU
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Debug|x64.ActiveCfg = Debug|x64
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Debug|x64.Build.0 = Debug|x64
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Release|x64.ActiveCfg = Release|x64
+		{3DA303B1-30E1-4CCD-AD93-E6C33E556411}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
