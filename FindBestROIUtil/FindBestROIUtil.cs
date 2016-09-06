@@ -24,12 +24,14 @@ namespace FindBestROIUtil
         /// <param name="ModelImage">The model image to search for.</param>
         /// <param name="PatchSize">The size of the patch to slide across the image.</param>
         /// <returns>The patch with the most confident SURF match to the model image.</returns>
-        public static Rectangle FindBestROI(Image<Gray, Byte> SceneImage, Image<Gray, Byte> ModelImage, Size PatchSize)
+        public static Rectangle FindBestROI(Image<Gray, Byte> SceneImage, Image<Gray, Byte> ModelImage, Size PatchSize, out PointF CenterRelativeToPatch)
         {
             Point CurrentLoc = new Point(0, 0);
             Tuple<Rectangle, double> BestROI = new Tuple<Rectangle, double>(Rectangle.Empty, 0.0f);
             Size StepSize = new Size((int)((float)PatchSize.Width / 2f), (int)((float)PatchSize.Height / 2f));
             Size SceneSize = new Size(SceneImage.Width, SceneImage.Height);
+
+            CenterRelativeToPatch = PointF.Empty;
 
             while (CurrentLoc.Y + PatchSize.Height < SceneSize.Height)
             {
@@ -47,7 +49,23 @@ namespace FindBestROIUtil
                     Rectangle ThisROI = new Rectangle(CurrentLoc, PatchSize);
                     SceneImage.ROI = ThisROI;
                     Draw(ModelImage, SceneImage, out time, out border, out confidence);
-                    if (confidence > BestROI.Item2) BestROI = new Tuple<Rectangle, double>(ThisROI, confidence);
+                    if (confidence > BestROI.Item2)
+                    {
+                        BestROI = new Tuple<Rectangle, double>(ThisROI, confidence);
+
+                        #region calculate center of object
+                        if (border != null)
+                        {
+                            float TotalX = 0, TotalY = 0;
+                            for (int i = 0; i < 4; i++)
+                            {
+                                TotalX += 0.25f * border[i].X;
+                                TotalY += 0.25f * border[i].Y;
+                            }
+                            CenterRelativeToPatch = new PointF(TotalX, TotalY);
+                        }
+                        #endregion
+                    }
                     CurrentLoc.X += StepSize.Width;
                 }
                 CurrentLoc.X = 0;
